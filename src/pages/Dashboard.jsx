@@ -3,10 +3,6 @@ import React from 'react'
 
 
 function Dashboard() {
-    // const { projects, tasks } = useAppProvider();
-
-    // const totalTasks = tasks.length;
-    // const completed = tasks.filter(t => t.completed).length;
 
     return (
         <>

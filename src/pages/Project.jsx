@@ -1,63 +1,80 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
-import { useAppProvider } from '../component/context';
-import { Trash2 } from 'lucide-react';
+import { useState } from "react";
+import { useAppProvider } from "../component/context";
+import { Eye, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router";
 
 function Project() {
-    const { projects, setProjects } = useAppProvider()
-    const [name, setName] = useState("");
     const navigate = useNavigate();
+    const { tasks, setTasks } = useAppProvider();
+    const [title, setTitle] = useState("");
+    const [Desc, setDesc] = useState("");
 
-    const addProject = (e) => {
-        e.preventDefault()
-        const newProject = {
+    const addTask = (e) => {
+        e.preventDefault();
+        const newTask = {
             id: Date.now(),
-            name: name,
+            title: title,
+            description: Desc,
+            completed: false,
         };
 
-        setProjects([...projects, newProject]);
-        setName("");
+        setTasks([...tasks, newTask]);
+        setTitle("");
+        setDesc("");
     };
-
     const deleteProject = (id) => {
-        const updated = projects.filter(p => p.id !== id);
-        setProjects(updated);
+        const updated = tasks.filter((p) => p.id !== id);
+        setTasks(updated);
     };
-    return (
 
-        <div>
-            <h2 className="text-xl font-bold mb-4">Projects</h2>
-            <form action="">
+    return (
+        <div className="w-full">
+            <h2 className="text-xl font-bold mb-4">Project Tasks</h2>
+            <form action="" className="flex flex-wrap gap-2">
                 <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Project name"
-                    className="border p-2 mr-2 rounded-md"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Task name"
+                    className="border p-2 mr-2"
                 />
 
-                <button className="bg-black text-white px-3 py-2 rounded-md" onClick={addProject}>
-                    Add
+                <input
+                    value={Desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                    placeholder="Task description"
+                    className="border p-2 mr-2"
+                />
+
+                <button onClick={addTask} className="bg-black text-white px-3 py-2">
+                    Add Task
                 </button>
             </form>
-            <div className="mt-4">
-                {projects.map((p) => (
-                    <div key={p.id} className="bg-white p-3 mb-2 border rounded-sm flex justify-between">
-                        <span onClick={() => navigate("Details")}>
-                            {p.name}
-                        </span>
-
-                        <button
-                            onClick={() => deleteProject(p.id)}
-                            className="ml-4 text-red-500"
-                        >
-                            <Trash2 />
-                        </button>
+            <div className="mt-4 flex gap-1.5 flex-wrap">
+                {tasks?.map((t) => (
+                    <div
+                        key={t.id}
+                        className="p-3 mb-2 border rounded-lg max-w-80 w-full flex justify-between cursor-pointer"
+                    >
+                        <div>
+                            <p> {t.title} </p>
+                            <p className="text-taupe-500"> {t.description} </p>
+                        </div>
+                        <div className="flex flex-col">
+                            <button>
+                                <Eye onClick={() => navigate(`details/${t.id}`)} />
+                            </button>
+                            <button
+                                onClick={() => deleteProject(t.id)}
+                                className="text-red-500"
+                            >
+                                <Trash2 />
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
-
-    )
+    );
 }
 
-export default Project
+export default Project;

@@ -2,7 +2,7 @@ import { Route, Router, Routes } from "react-router"
 import Dashboard from "./pages/Dashboard"
 import Sidebar from "./pages/Sidebar"
 import Project from "./pages/Project"
-import ProjectDetail from "./pages/ProjectDetail"
+import ProjectDetails from "./pages/ProjectDetails"
 
 function App() {
 
@@ -13,8 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="Projects" element={<Project />} />
-          <Route path="Projects/Details" element={<ProjectDetail />} />
+          <Route path="projects" element={<Project />} />
+          <Route path="projects/details/:id" element={<ProjectDetails />} />
         </Routes>
       </div>
     </>

@@ -1,33 +1,31 @@
 {
-  "projects": [
-    {
-      "id": 1,
-      "name": "Website Development"
-    }
-  ],
   "tasks": [
     {
       "id": 101,
       "title": "Setup React Project",
       "description": "Initialize Vite + React app",
+      "duedate": "10-10-2025",
       "completed": false
     },
     {
       "id": 102,
       "title": "Create Navbar",
       "description": "Build navigation component",
+      "duedate": "10-10-2025",
       "completed": true
     },
     {
       "id": 103,
       "title": "Design UI Screens",
       "description": "Create app UI in Figma",
+      "duedate": "10-10-2025",
       "completed": false
     },
     {
       "id": 104,
       "title": "API Integration",
       "description": "Connect backend APIs",
+      "duedate": "10-10-2025",
       "completed": false
     }
   ]

@@ -10,7 +10,7 @@ function Sidebar() {
                 <h1 className="text-lg font-bold mb-5">Task App</h1>
                 <div className="flex flex-col gap-2 text-white">
                     <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/Projects">Projects</Link>
+                    <Link to="/projects">Projects</Link>
 
                 </div>
             </div>
