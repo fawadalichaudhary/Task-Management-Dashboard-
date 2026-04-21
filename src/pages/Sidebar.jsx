@@ -5,18 +5,21 @@ import Dashboard from "./Dashboard";
 
 function Sidebar() {
     return (
-        <nav className="max-w-40 w-full bg-blue-400 p-5 h-screen rounded-r-lg flex justify-between flex-col">
-            <div >
-                <h1 className="text-lg font-bold mb-5">Task App</h1>
-                <div className="flex flex-col gap-2 text-white">
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/projects">Projects</Link>
+        <nav className="w-64 bg-blue-600 text-white p-5 h-screen flex flex-col justify-between shadow-lg">
+            <div>
+                <h1 className="text-xl font-bold mb-8">Task App</h1>
+                <div className="flex flex-col gap-3 text-sm">
+                    <Link to="/dashboard" className="hover:bg-white/20 px-3 py-2 rounded-lg transition">   Dashboard
+                    </Link>
 
+                    <Link to="/projects" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
+                    </Link>
                 </div>
             </div>
-            <div className="flex gap-2 ">
-                <Settings className="text-white h-6 w-6 cursor-pointer" />
-                <WifiCog className="text-white h-6 w-6 cursor-pointer" />
+
+            <div className="flex gap-3">
+                <Settings className="cursor-pointer hover:scale-110 transition" />
+                <WifiCog className="cursor-pointer hover:scale-110 transition" />
             </div>
         </nav>
     );

@@ -15,59 +15,75 @@ function Project() {
             id: Date.now(),
             title: title,
             description: Desc,
+            duedate: Date(),
             completed: false,
         };
+        console.log(tasks);
 
         setTasks([...tasks, newTask]);
         setTitle("");
         setDesc("");
     };
+
     const deleteProject = (id) => {
         const updated = tasks.filter((p) => p.id !== id);
         setTasks(updated);
     };
 
     return (
-        <div className="w-full">
-            <h2 className="text-xl font-bold mb-4">Project Tasks</h2>
-            <form action="" className="flex flex-wrap gap-2">
+        <div className="w-full p-4 md:p-6">
+            <h2 className="text-2xl font-semibold mb-6">Project Tasks</h2>
+
+            <form className="flex flex-col sm:flex-row gap-3 mb-6">
                 <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Task name"
-                    className="border p-2 mr-2"
+                    className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
                 <input
                     value={Desc}
                     onChange={(e) => setDesc(e.target.value)}
                     placeholder="Task description"
-                    className="border p-2 mr-2"
+                    className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
-                <button onClick={addTask} className="bg-black text-white px-3 py-2">
+                <button
+                    onClick={addTask}
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg transition"
+                >
                     Add Task
                 </button>
             </form>
-            <div className="mt-4 flex gap-1.5 flex-wrap">
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {tasks?.map((t) => (
                     <div
                         key={t.id}
-                        className="p-3 mb-2 border rounded-lg max-w-80 w-full flex justify-between cursor-pointer"
+                        draggable
+                        className="bg-white shadow-md rounded-2xl p-4 border flex justify-between items-start hover:shadow-lg transition"
                     >
                         <div>
-                            <p> {t.title} </p>
-                            <p className="text-taupe-500"> {t.description} </p>
+                            <p className="font-semibold text-lg">{t.title}</p>
+                            <p className="text-gray-500 text-sm mt-1">
+                                {t.description}
+                            </p>
                         </div>
-                        <div className="flex flex-col">
+
+                        <div className="flex flex-col gap-2">
                             <button>
-                                <Eye onClick={() => navigate(`details/${t.id}`)} />
+                                <Eye
+                                    className="cursor-pointer text-gray-600 hover:text-blue-500"
+                                    onClick={() => navigate(`details/${t.id}`)}
+                                />
                             </button>
+
                             <button
                                 onClick={() => deleteProject(t.id)}
-                                className="text-red-500"
+                                className="text-red-500 hover:text-red-600"
                             >
-                                <Trash2 />
+                                <Trash2 className="cursor-pointer" />
                             </button>
                         </div>
                     </div>
