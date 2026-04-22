@@ -5,14 +5,14 @@ import Dashboard from "./Dashboard";
 
 function Sidebar() {
     return (
-        <nav className="w-64 bg-blue-600 text-white p-5 h-screen flex flex-col justify-between shadow-lg">
+        <nav className="w-50 bg-blue-600 text-white fixed p-5 min-h-screen h-full flex flex-col justify-between shadow-lg">
             <div>
                 <h1 className="text-xl font-bold mb-8">Task App</h1>
                 <div className="flex flex-col gap-3 text-sm">
                     <Link to="/dashboard" className="hover:bg-white/20 px-3 py-2 rounded-lg transition">   Dashboard
                     </Link>
 
-                    <Link to="/projects" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
+                    <Link to="/task" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
                     </Link>
                 </div>
             </div>

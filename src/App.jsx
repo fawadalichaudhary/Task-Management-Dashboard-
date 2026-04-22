@@ -1,8 +1,8 @@
 import { Route, Router, Routes } from "react-router"
 import Dashboard from "./pages/Dashboard"
 import Sidebar from "./pages/Sidebar"
-import Project from "./pages/Project"
-import ProjectDetails from "./pages/ProjectDetails"
+import Task from "./pages/Task"
+import TaskDetails from "./pages/TaskDetails"
 
 function App() {
 
@@ -10,12 +10,15 @@ function App() {
     <>
       <div className="flex gap-2">
         <Sidebar />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="projects" element={<Project />} />
-          <Route path="projects/details/:id" element={<ProjectDetails />} />
-        </Routes>
+        <div className="ml-50 w-full">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="task" element={<Task />} />
+            <Route path="task/details/:id" element={<TaskDetails />} />
+            <Route path="dashboard/details/:id" element={<TaskDetails />} />
+          </Routes>
+        </div>
       </div>
     </>
   )

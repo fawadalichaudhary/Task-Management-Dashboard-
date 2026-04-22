@@ -3,11 +3,12 @@ import { useAppProvider } from "../component/context";
 import { Eye, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router";
 
-function Project() {
+function Task() {
     const navigate = useNavigate();
     const { tasks, setTasks } = useAppProvider();
     const [title, setTitle] = useState("");
     const [Desc, setDesc] = useState("");
+    const [Date1, setDate1] = useState("")
 
     const addTask = (e) => {
         e.preventDefault();
@@ -15,17 +16,17 @@ function Project() {
             id: Date.now(),
             title: title,
             description: Desc,
-            duedate: Date(),
-            completed: false,
+            duedate: Date1,
+            status: "todo"
         };
-        console.log(tasks);
 
-        setTasks([...tasks, newTask]);
+        tasks.push(newTask)
+        console.log(tasks);
         setTitle("");
         setDesc("");
     };
 
-    const deleteProject = (id) => {
+    const deleteTask = (id) => {
         const updated = tasks.filter((p) => p.id !== id);
         setTasks(updated);
     };
@@ -48,6 +49,13 @@ function Project() {
                     placeholder="Task description"
                     className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
+                <input
+                    type="number"
+                    value={Date}
+                    onChange={(e) => setDate1(e.target.value)}
+                    placeholder="Task name"
+                    className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
 
                 <button
                     onClick={addTask}
@@ -61,14 +69,10 @@ function Project() {
                 {tasks?.map((t) => (
                     <div
                         key={t.id}
-                        draggable
                         className="bg-white shadow-md rounded-2xl p-4 border flex justify-between items-start hover:shadow-lg transition"
                     >
                         <div>
                             <p className="font-semibold text-lg">{t.title}</p>
-                            <p className="text-gray-500 text-sm mt-1">
-                                {t.description}
-                            </p>
                         </div>
 
                         <div className="flex flex-col gap-2">
@@ -80,7 +84,7 @@ function Project() {
                             </button>
 
                             <button
-                                onClick={() => deleteProject(t.id)}
+                                onClick={() => deleteTask(t.id)}
                                 className="text-red-500 hover:text-red-600"
                             >
                                 <Trash2 className="cursor-pointer" />
@@ -93,4 +97,4 @@ function Project() {
     );
 }
 
-export default Project;
+export default Task;
