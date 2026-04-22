@@ -51,7 +51,7 @@ function Task() {
                 />
                 <input
                     type="number"
-                    value={Date}
+                    value={Date1}
                     onChange={(e) => setDate1(e.target.value)}
                     placeholder="Task name"
                     className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
