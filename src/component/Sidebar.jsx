@@ -16,6 +16,7 @@ function Sidebar() {
                     </Link>
                 </div>
             </div>
+
         </nav>
     );
 }

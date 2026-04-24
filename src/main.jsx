@@ -5,16 +5,18 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
-import { AppProvider } from './context/context.jsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <DndProvider backend={HTML5Backend}>
-        <AppProvider>
+    <DndProvider backend={HTML5Backend}>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
           <App />
-        </AppProvider>
-      </DndProvider>
-    </BrowserRouter>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </DndProvider>
   </StrictMode>,
 )

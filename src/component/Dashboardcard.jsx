@@ -1,11 +1,8 @@
 import { Eye } from "lucide-react";
 import React from "react";
 import { useDrag } from "react-dnd";
-import { useNavigate } from "react-router";
 
 function Dashboardcard({ task }) {
-    const navigate = useNavigate()
-
     const [{ isDragging }, drag] = useDrag(() => ({
 
         type: "task",
@@ -15,7 +12,6 @@ function Dashboardcard({ task }) {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
-
     }));
 
     return (
@@ -26,8 +22,7 @@ function Dashboardcard({ task }) {
             ${isDragging ? "opacity-50" : "opacity-100"}
             `}
         >
-            <p className="font-semibold text-lg hover:text-blue-500"
-                onClick={() => navigate(`details/${task.id}`)}>
+            <p className="font-semibold text-lg hover:text-blue-500">
                 {task.title}
             </p>
 

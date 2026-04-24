@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard"
 import Sidebar from "./component/Sidebar"
 import Task from "./pages/Task"
 import TaskDetails from "./pages/TaskDetails"
+import Projects from "./pages/Project"
 
 function App() {
 
@@ -14,9 +15,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="task" element={<Task />} />
-            <Route path="task/details/:id" element={<TaskDetails />} />
-            <Route path="dashboard/details/:id" element={<TaskDetails />} />
+            <Route path="task" element={<Projects />} />
+            <Route path="projects/:projectId/tasks" element={<Task />} />
+            <Route path="/projects/:projectId/details/:id" element={<TaskDetails />} />
           </Routes>
         </div>
       </div>
