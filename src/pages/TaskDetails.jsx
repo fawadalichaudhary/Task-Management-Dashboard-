@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useAppProvider } from "../component/context";
+import { useAppProvider } from "../context/context";
 
 function TaskDetails() {
     const { id } = useParams();

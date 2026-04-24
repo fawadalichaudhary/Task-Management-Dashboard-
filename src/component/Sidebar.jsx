@@ -1,6 +1,6 @@
 import { Settings, WifiCog } from "lucide-react";
 import { Link } from "react-router";
-import Dashboard from "./Dashboard";
+import Dashboard from "../pages/Dashboard";
 
 
 function Sidebar() {
@@ -12,14 +12,9 @@ function Sidebar() {
                     <Link to="/dashboard" className="hover:bg-white/20 px-3 py-2 rounded-lg transition">   Dashboard
                     </Link>
 
-                    <Link to="/task" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
+                    <Link to="/task" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Tasks
                     </Link>
                 </div>
-            </div>
-
-            <div className="flex gap-3">
-                <Settings className="cursor-pointer hover:scale-110 transition" />
-                <WifiCog className="cursor-pointer hover:scale-110 transition" />
             </div>
         </nav>
     );

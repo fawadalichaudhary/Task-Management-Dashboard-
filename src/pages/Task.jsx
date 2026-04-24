@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppProvider } from "../component/context";
+import { useAppProvider } from "../context/context";
 import { Eye, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -7,23 +7,29 @@ function Task() {
     const navigate = useNavigate();
     const { tasks, setTasks } = useAppProvider();
     const [title, setTitle] = useState("");
-    const [Desc, setDesc] = useState("");
-    const [Date1, setDate1] = useState("")
+    const [desc, setDesc] = useState("");
+    const [date, setDate] = useState("")
 
     const addTask = (e) => {
         e.preventDefault();
-        const newTask = {
-            id: Date.now(),
-            title: title,
-            description: Desc,
-            duedate: Date1,
-            status: "todo"
-        };
+        if (title !== "" && desc !== "" && date !== "") {
 
-        tasks.push(newTask)
-        console.log(tasks);
-        setTitle("");
-        setDesc("");
+            const newTask = {
+                id: Date.now(),
+                title: title,
+                description: desc,
+                duedate: date,
+                status: "todo"
+            };
+
+            setTasks((prev) => [...prev, newTask]);
+            console.log(tasks);
+            setTitle("");
+            setDesc("");
+            setDate("");
+        } else {
+            alert("Enter complete details")
+        }
     };
 
     const deleteTask = (id) => {
@@ -44,15 +50,15 @@ function Task() {
                 />
 
                 <input
-                    value={Desc}
+                    value={desc}
                     onChange={(e) => setDesc(e.target.value)}
                     placeholder="Task description"
                     className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
                 <input
                     type="date"
-                    value={Date1}
-                    onChange={(e) => setDate1(e.target.value)}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                     placeholder="Task date"
                     className="border rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />

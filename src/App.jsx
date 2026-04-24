@@ -1,6 +1,6 @@
 import { Route, Router, Routes } from "react-router"
 import Dashboard from "./pages/Dashboard"
-import Sidebar from "./pages/Sidebar"
+import Sidebar from "./component/Sidebar"
 import Task from "./pages/Task"
 import TaskDetails from "./pages/TaskDetails"
 

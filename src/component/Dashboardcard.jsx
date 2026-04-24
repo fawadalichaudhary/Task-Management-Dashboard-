@@ -1,7 +1,11 @@
+import { Eye } from "lucide-react";
 import React from "react";
 import { useDrag } from "react-dnd";
+import { useNavigate } from "react-router";
 
-function TaskCard({ task }) {
+function Dashboardcard({ task }) {
+    const navigate = useNavigate()
+
     const [{ isDragging }, drag] = useDrag(() => ({
 
         type: "task",
@@ -17,16 +21,18 @@ function TaskCard({ task }) {
     return (
         <div
             ref={drag}
-            className={`bg-white shadow-md rounded-2xl p-4 border 
+            className={`bg-white shadow-md rounded-2xl p-4 border flex justify-between 
             hover:shadow-lg transition mb-3 cursor-grab
             ${isDragging ? "opacity-50" : "opacity-100"}
             `}
         >
-            <p className="font-semibold text-lg">
+            <p className="font-semibold text-lg hover:text-blue-500"
+                onClick={() => navigate(`details/${task.id}`)}>
                 {task.title}
             </p>
+
         </div>
     );
 }
 
-export default TaskCard;
+export default Dashboardcard;
