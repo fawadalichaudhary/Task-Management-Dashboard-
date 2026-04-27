@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { useProjects, useCreateProject } from "../Hooks/UseProject";
+import { useProjects, useCreateProject, useDeleteProject } from "../Hooks/UseProject";
 import { useNavigate } from "react-router";
+import { Trash2 } from "lucide-react";
 
 function Projects() {
     const { projects, isLoading, isError, error } = useProjects();
     const createProject = useCreateProject();
     const navigate = useNavigate();
+    const deleteProject = useDeleteProject()
 
     const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
 
     const addProject = (e) => {
         e.preventDefault();
 
-        if (!name || !description) {
+        if (!name) {
             alert("Enter complete details");
             return;
         }
@@ -21,11 +22,9 @@ function Projects() {
         createProject.mutate({
             id: Date.now(),
             name,
-            description,
         });
 
         setName("");
-        setDescription("");
     };
 
     if (isLoading) return <p className="p-4">Loading...</p>;
@@ -46,13 +45,6 @@ function Projects() {
                     className="border rounded-lg px-2 h-12 w-full"
                 />
 
-                <input
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Project description"
-                    className="border rounded-lg px-2 h-12 w-full"
-                />
-
                 <button className="bg-blue-500 text-white px-5 h-12 rounded-lg">
                     Add Project
                 </button>
@@ -65,17 +57,15 @@ function Projects() {
                         onClick={() =>
                             navigate(`/projects/${project.id}/tasks`)
                         }
-                        className="bg-white shadow-md rounded-2xl p-4 border cursor-pointer hover:shadow-lg transition"
+                        className="bg-white shadow-md rounded-2xl p-4 border cursor-pointer hover:shadow-lg transition flex justify-between"
                     >
                         <p className="font-semibold text-lg">
                             {project.name}
                         </p>
-
-                        {project.description && (
-                            <p className="text-sm text-gray-500 mt-1">
-                                {project.description}
-                            </p>
-                        )}
+                        <button > <Trash2 onClick={(e) => {
+                            e.stopPropagation();
+                            deleteProject.mutate(project.id)
+                        }} /> </button>
                     </div>
                 ))}
             </div>

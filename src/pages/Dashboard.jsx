@@ -69,7 +69,7 @@ function Dashboard() {
                 </label>
 
                 <select
-                    className="border px-3 py-2 rounded-lg bg-white shadow-sm w-full md:w-80"
+                    className="border p-3 rounded-lg bg-white shadow-sm w-full md:w-80"
                     value={selectedProject}
                     onChange={(e) => setSelectedProject(e.target.value)}
                 >
