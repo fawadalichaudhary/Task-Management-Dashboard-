@@ -10,13 +10,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <DndProvider backend={HTML5Backend}>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </DndProvider>
-  </StrictMode>,
+  // <StrictMode>
+  <DndProvider backend={HTML5Backend}>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </DndProvider>
+  // {/* </StrictMode>, */}
 )

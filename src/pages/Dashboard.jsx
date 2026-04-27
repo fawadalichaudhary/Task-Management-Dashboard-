@@ -38,7 +38,7 @@ function Dashboard() {
         collect: (monitor) => ({
             isTodoOver: !!monitor.isOver(),
         }),
-    }));
+    }), [handleStatusChange]);
 
     const [{ isProgressOver }, progressDrop] = useDrop(() => ({
         accept: "task",
@@ -46,7 +46,7 @@ function Dashboard() {
         collect: (monitor) => ({
             isProgressOver: !!monitor.isOver(),
         }),
-    }));
+    }), [handleStatusChange]);
 
     const [{ isDoneOver }, doneDrop] = useDrop(() => ({
         accept: "task",
@@ -55,7 +55,7 @@ function Dashboard() {
             isDoneOver: !!monitor.isOver(),
         }),
 
-    }));
+    }), [handleStatusChange]);
 
     const todo = tasks.filter((t) => t.status === "todo");
     const inProgress = tasks.filter((t) => t.status === "progress");
