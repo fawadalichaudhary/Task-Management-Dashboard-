@@ -66,9 +66,8 @@ export const useDeleteTask = () => {
     });
 };
 
-export const useUpdateTask = (temp) => {
+export const useUpdateTask = () => {
     const queryClient = useQueryClient();
-    console.log(temp)
 
     return useMutation({
         mutationFn: ({ projectId, taskId, updatedTask }) => {
@@ -80,7 +79,9 @@ export const useUpdateTask = (temp) => {
                 .then((res) => res.data);
         },
         onSuccess: (_, variables) => {
-            queryClient.invalidateQueries(["tasks", variables.projectId]);
+            queryClient.invalidateQueries({
+                queryKey: ["tasks", variables.projectId],
+            });
         },
     });
 };

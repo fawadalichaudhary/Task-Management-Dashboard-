@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useParams } from "react-router";
 import Dashboardcard from "../component/Dashboardcard";
@@ -16,17 +17,12 @@ function Dashboard() {
 
     const [selectedProject, setSelectedProject] = useState(routeProjectId || "");
 
-    const {
-        tasks = [],
-        isLoading,
-        isError,
-        error,
-    } = useProjectTasks(selectedProject);
+    const { tasks = [], isLoading, isError, error } = useProjectTasks(selectedProject);
 
     const updateTask = useUpdateTask();
 
     const handleStatusChange = (taskId, status) => {
-        const task = tasks.find((t) => t.id === taskId);
+        const task = tasks?.find((t) => t.id === taskId);
         if (!task) return;
 
         updateTask.mutate({
@@ -36,19 +32,29 @@ function Dashboard() {
         });
     };
 
-    const [, todoDrop] = useDrop(() => ({
+    const [{ isTodoOver }, todoDrop] = useDrop(() => ({
         accept: "task",
         drop: (item) => handleStatusChange(item.id, "todo"),
+        collect: (monitor) => ({
+            isTodoOver: !!monitor.isOver(),
+        }),
     }));
 
-    const [, progressDrop] = useDrop(() => ({
+    const [{ isProgressOver }, progressDrop] = useDrop(() => ({
         accept: "task",
         drop: (item) => handleStatusChange(item.id, "progress"),
+        collect: (monitor) => ({
+            isProgressOver: !!monitor.isOver(),
+        }),
     }));
 
-    const [, doneDrop] = useDrop(() => ({
+    const [{ isDoneOver }, doneDrop] = useDrop(() => ({
         accept: "task",
         drop: (item) => handleStatusChange(item.id, "done"),
+        collect: (monitor) => ({
+            isDoneOver: !!monitor.isOver(),
+        }),
+
     }));
 
     const todo = tasks.filter((t) => t.status === "todo");
@@ -56,6 +62,8 @@ function Dashboard() {
     const completed = tasks.filter((t) => t.status === "done");
 
     const totalTasks = tasks.length;
+
+    console.log({ tasks })
 
     if (isError) return <p>Error: {error.message}</p>;
 

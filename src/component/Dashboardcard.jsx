@@ -13,7 +13,6 @@ function Dashboardcard({ task }) {
             isDragging: !!monitor.isDragging()
         })
     }));
-
     return (
         <div
             ref={drag}
