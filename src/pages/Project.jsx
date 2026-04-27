@@ -1,9 +1,32 @@
-import { useProjects } from "../Hooks/UseProject";
+import { useState } from "react";
+import { useProjects, useCreateProject } from "../Hooks/UseProject";
 import { useNavigate } from "react-router";
 
 function Projects() {
     const { projects, isLoading, isError, error } = useProjects();
+    const createProject = useCreateProject();
     const navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+
+    const addProject = (e) => {
+        e.preventDefault();
+
+        if (!name || !description) {
+            alert("Enter complete details");
+            return;
+        }
+
+        createProject.mutate({
+            id: Date.now(),
+            name,
+            description,
+        });
+
+        setName("");
+        setDescription("");
+    };
 
     if (isLoading) return <p className="p-4">Loading...</p>;
     if (isError) return <p className="p-4">Error: {error.message}</p>;
@@ -11,6 +34,29 @@ function Projects() {
     return (
         <div className="w-full p-4 md:p-6 bg-gray-50 min-h-screen">
             <h2 className="text-2xl font-semibold mb-6">Projects</h2>
+
+            <form
+                onSubmit={addProject}
+                className="flex flex-col sm:flex-row gap-3 mb-6"
+            >
+                <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Project name"
+                    className="border rounded-lg px-2 h-12 w-full"
+                />
+
+                <input
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Project description"
+                    className="border rounded-lg px-2 h-12 w-full"
+                />
+
+                <button className="bg-blue-500 text-white px-5 h-12 rounded-lg">
+                    Add Project
+                </button>
+            </form>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {projects?.map((project) => (

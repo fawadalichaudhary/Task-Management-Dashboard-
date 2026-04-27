@@ -84,3 +84,46 @@ export const useUpdateTask = (temp) => {
         },
     });
 };
+export const useUpdateProject = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ projectId, updatedProject }) => {
+            return axios.put(
+                `${BASE_URL}/projects/${projectId}`,
+                updatedProject
+            );
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["projects"]);
+        },
+    });
+};
+
+
+export const useDeleteProject = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (projectId) => {
+            return axios.delete(`${BASE_URL}/projects/${projectId}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["projects"]);
+        },
+    });
+};
+export const useCreateProject = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (project) => {
+            return axios
+                .post(`${BASE_URL}/projects`, project)
+                .then((res) => res.data);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["projects"]);
+        },
+    });
+};
