@@ -12,7 +12,7 @@ function Sidebar() {
                     <Link to="/dashboard" className="hover:bg-white/20 px-3 py-2 rounded-lg transition">   Dashboard
                     </Link>
 
-                    <Link to="/task" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
+                    <Link to="projects" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
                     </Link>
                 </div>
             </div>

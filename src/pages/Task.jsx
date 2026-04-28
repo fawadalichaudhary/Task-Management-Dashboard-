@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Eye, Trash2 } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 import { useProjectTasks, useCreateTask, useDeleteTask, } from "../Hooks/UseProject";
 
@@ -25,7 +26,7 @@ function Task() {
             createTask.mutate({
                 projectId,
                 task: {
-                    id: Date.now(),
+                    id: uuidv4(),
                     projectId: 1,
                     title: title,
                     description: desc,

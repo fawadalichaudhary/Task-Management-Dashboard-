@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useProjects, useCreateProject, useDeleteProject } from "../Hooks/UseProject";
 import { useNavigate } from "react-router";
 import { Trash2 } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 function Projects() {
     const { projects, isLoading, isError, error } = useProjects();
@@ -20,7 +21,7 @@ function Projects() {
         }
 
         createProject.mutate({
-            id: Date.now(),
+            id: uuidv4(),
             name,
         });
 
