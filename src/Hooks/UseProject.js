@@ -6,7 +6,11 @@ console.log({ BASE_URL });
 
 export const useProjects = () => {
     const getProjects = () => {
-        return axios.get(`${BASE_URL}/projects`).then((res) => {
+        return axios.get(`${BASE_URL}/projects`, {
+            headers: {
+                "ngrok-skip-browser-warning": "true"
+            }
+        }).then((res) => {
             console.log("projects", res.data);
             return res.data;
         });
@@ -23,7 +27,11 @@ export const useProjects = () => {
 
 export const useProjectTasks = (projectId) => {
     const getTasks = () => {
-        return axios.get(`${BASE_URL}/projects/${projectId}/tasks`).then((res) => {
+        return axios.get(`${BASE_URL}/projects/${projectId}/tasks`, {
+            headers: {
+                "ngrok-skip-browser-warning": "true"
+            }
+        }).then((res) => {
             console.log("tasks", res.data);
             return res.data;
         });
@@ -44,7 +52,11 @@ export const useCreateTask = () => {
     return useMutation({
         mutationFn: ({ projectId, task }) => {
             return axios
-                .post(`${BASE_URL}/projects/${projectId}/tasks`, task)
+                .post(`${BASE_URL}/projects/${projectId}/tasks`, task, {
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    }
+                })
                 .then((res) => res.data);
         },
         onSuccess: (_, variables) => {
@@ -59,7 +71,11 @@ export const useDeleteTask = () => {
     return useMutation({
         mutationFn: ({ projectId, taskId }) => {
             return axios.delete(
-                `${BASE_URL}/projects/${projectId}/tasks/${taskId}`
+                `${BASE_URL}/projects/${projectId}/tasks/${taskId}`, {
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                }
+            }
             );
         },
         onSuccess: (_, variables) => {
@@ -76,7 +92,11 @@ export const useUpdateTask = () => {
             return axios
                 .put(
                     `${BASE_URL}/projects/${projectId}/tasks/${taskId}`,
-                    updatedTask
+                    updatedTask, {
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    }
+                }
                 )
                 .then((res) => res.data);
         },
@@ -94,7 +114,11 @@ export const useUpdateProject = () => {
         mutationFn: ({ projectId, updatedProject }) => {
             return axios.put(
                 `${BASE_URL}/projects/${projectId}`,
-                updatedProject
+                updatedProject, {
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                }
+            }
             );
         },
         onSuccess: () => {
@@ -109,7 +133,11 @@ export const useDeleteProject = () => {
 
     return useMutation({
         mutationFn: (projectId) => {
-            return axios.delete(`${BASE_URL}/projects/${projectId}`);
+            return axios.delete(`${BASE_URL}/projects/${projectId}`, {
+                headers: {
+                    "ngrok-skip-browser-warning": "true"
+                }
+            });
         },
         onSuccess: () => {
             queryClient.invalidateQueries(["projects"]);
@@ -122,7 +150,11 @@ export const useCreateProject = () => {
     return useMutation({
         mutationFn: (project) => {
             return axios
-                .post(`${BASE_URL}/projects`, project)
+                .post(`${BASE_URL}/projects`, project, {
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    }
+                })
                 .then((res) => res.data);
         },
         onSuccess: () => {
