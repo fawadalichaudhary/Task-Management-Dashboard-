@@ -41,6 +41,8 @@ export const useProjectTasks = (projectId) => {
         queryKey: ["tasks", projectId],
         queryFn: getTasks,
         enabled: !!projectId,
+        refetchOnWindowFocus: false,
+
     });
 
     return { tasks: data, isLoading, isError, error };

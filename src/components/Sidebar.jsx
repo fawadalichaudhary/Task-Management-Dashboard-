@@ -1,4 +1,4 @@
-import { Settings, WifiCog } from "lucide-react";
+import { Folder, FolderKanban, LayoutDashboard, Settings, WifiCog } from "lucide-react";
 import { Link } from "react-router";
 import Dashboard from "../pages/Dashboard";
 
@@ -9,11 +9,12 @@ function Sidebar() {
             <div>
                 <h1 className="text-xl font-bold mb-8">Task App</h1>
                 <div className="flex flex-col gap-3 text-sm">
-                    <Link to="/dashboard" className="hover:bg-white/20 px-3 py-2 rounded-lg transition">   Dashboard
+                    <Link to="/dashboard" className="hover:bg-white/20 px-3 py-2 rounded-lg transition flex gap-2"><LayoutDashboard /> DashBoard
                     </Link>
 
-                    <Link to="projects" className="hover:bg-white/20 px-3 py-2 rounded-lg transition"> Projects
+                    <Link to="projects" className="hover:bg-white/20 px-3 py-2 rounded-lg transition flex gap-2"> <Folder />Projects
                     </Link>
+                    <Link to={"kanbanBoard"} className="hover:bg-white/20 px-3 py-2 rounded-lg transition flex gap-2"><FolderKanban />Task Board </Link>
                 </div>
             </div>
 

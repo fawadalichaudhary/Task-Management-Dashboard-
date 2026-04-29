@@ -1,47 +1,18 @@
+import { useParams } from "react-router";
+import { SquarePen, Trash2 } from "lucide-react";
+import { useProjectTasks, useDeleteTask } from "../Hooks/UseProject";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import TaskModel from "@/components/TaskModel";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { Eye, Trash2 } from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
-
-import { useProjectTasks, useCreateTask, useDeleteTask, } from "../Hooks/UseProject";
 
 function Task() {
-    const navigate = useNavigate();
     const { projectId } = useParams();
 
     const { tasks, isLoading, isError, error } = useProjectTasks(projectId);
-    const createTask = useCreateTask();
     const deleteTask = useDeleteTask();
 
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
-    const [date, setDate] = useState("");
-    console.log(tasks);
+    const [selectedTask, setSelectedTask] = useState(null);
 
-
-    const addTask = (e) => {
-        e.preventDefault();
-
-        if (title && desc && date) {
-            createTask.mutate({
-                projectId,
-                task: {
-                    id: uuidv4(),
-                    projectId: 1,
-                    title: title,
-                    description: desc,
-                    duedate: date,
-                    status: "todo",
-                },
-            });
-
-            setTitle("");
-            setDesc("");
-            setDate("");
-        } else {
-            alert("Enter complete details");
-        }
-    };
     const handleDelete = (taskId) => {
         deleteTask.mutate({
             projectId,
@@ -49,69 +20,61 @@ function Task() {
         });
     };
 
-    if (isLoading) return <p>Loading...</p>;
-    if (isError) return <p>Error: {error.message}</p>;
+    if (isLoading) return <p className="text-center py-10 text-gray-500">Loading...</p>;
+    if (isError) return <p className="text-center py-10 text-red-500">Error: {error.message}</p>;
 
     return (
-        <div className="w-full p-4 md:p-6">
-            <h2 className="text-2xl font-semibold mb-6">Project Tasks</h2>
-            <form
-                onSubmit={addTask}
-                className="flex flex-col sm:flex-row gap-3 mb-6"
-            >
-                <input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Task name"
-                    className="border rounded-lg px-1 h-12 w-full"
+        <div className="w-full max-w-7xl mx-auto p-4 md:p-8">
+            <div className="mb-6 flex items-center justify-between">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+                    Project Tasks
+                </h2>
+                <TaskModel />
+            </div>
+            {selectedTask && (
+                <TaskModel
+                    selectedTask={selectedTask}
+                    onClose={() => setSelectedTask(null)}
                 />
+            )}
 
-                <input
-                    value={desc}
-                    onChange={(e) => setDesc(e.target.value)}
-                    placeholder="Task description"
-                    className="border rounded-lg px-1 h-12 w-full"
-                />
+            <div className="rounded-xl border shadow-sm overflow-hidden bg-white">
+                <Table>
+                    <TableHeader>
+                        <TableRow className="bg-gray-50">
+                            <TableHead>Title</TableHead>
+                            <TableHead>Description</TableHead>
+                            <TableHead>Due Date</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
+                        </TableRow>
+                    </TableHeader>
 
-                <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="border rounded-lg px-1 h-12 w-full"
-                />
+                    <TableBody>
+                        {tasks?.map((t) => (
+                            <TableRow key={t.id} className="hover:bg-gray-50">
+                                <TableCell>{t.title}</TableCell>
+                                <TableCell className="truncate max-w-xs">
+                                    {t.description}
+                                </TableCell>
+                                <TableCell>{t.duedate}</TableCell>
+                                <TableCell>{t.status}</TableCell>
 
-                <button className="bg-blue-500 text-white px-5 h-12 rounded-lg">
-                    Add Task
-                </button>
-            </form>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {tasks?.map((t) => (
-                    <div
-                        key={t.id}
-                        className="bg-white shadow-md rounded-2xl p-4 border flex justify-between"
-                    >
-                        <div>
-                            <p className="font-semibold text-lg">{t.title}</p>
-                            <p className="text-sm text-gray-500">
-                                {t.description}
-                            </p>
-                        </div>
+                                <TableCell className="flex justify-end gap-4">
+                                    <SquarePen
+                                        className="w-5 h-5 cursor-pointer text-gray-500 hover:text-blue-600"
+                                        onClick={() => setSelectedTask(t)}
+                                    />
 
-                        <div className="flex flex-col gap-2">
-                            <Eye
-                                className="cursor-pointer text-gray-600 hover:text-blue-500"
-                                onClick={() =>
-                                    navigate(`/projects/${projectId}/details/${t.id}`)
-                                }
-                            />
-
-                            <Trash2
-                                className="cursor-pointer text-red-500"
-                                onClick={() => handleDelete(t.id)}
-                            />
-                        </div>
-                    </div>
-                ))}
+                                    <Trash2
+                                        className="w-5 h-5 cursor-pointer text-red-500 hover:text-red-600"
+                                        onClick={() => handleDelete(t.id)}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </div>
         </div>
     );
